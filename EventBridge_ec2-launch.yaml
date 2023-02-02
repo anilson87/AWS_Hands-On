@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template for EventBridge rule 'ec2-launch'
+Resources:
+  EventRule0:
+    Type: AWS::Events::Rule
+    Properties:
+      EventBusName: default
+      EventPattern:
+        source:
+          - aws.ec2
+        detail-type:
+          - AWS API Call via CloudTrail
+        detail:
+          eventSource:
+            - ec2.amazonaws.com
+          eventName:
+            - RunInstances
+      Name: ec2-launch
+      State: ENABLED
+      Targets:
+        - Id: Id420cbce0-c940-4a32-9044-8ec6ef633a10
+          Arn: arn:aws:lambda:us-west-2:086796595852:function:EC2-Tagging
